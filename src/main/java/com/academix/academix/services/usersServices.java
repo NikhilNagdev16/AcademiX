@@ -21,9 +21,11 @@ public class usersServices implements userServiceInterface {
     }
 
     @Override
-    public int addusers(users users) {
-        return userDAO.addusers(users);
+    public int addusers(users users,int collegeid) {
+        return userDAO.addusers(users,collegeid);
     }
+
+
 
     @Override
     public users getUserById(int id) {

@@ -24,4 +24,6 @@ public class CollegeServices implements CollegeServiceInterface {
     public colleges getCollegeById(int id) {
         return CollegeDAO.getCollegeById(id);
     }
+
+
 }

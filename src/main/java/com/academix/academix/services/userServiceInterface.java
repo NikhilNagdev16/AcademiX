@@ -6,7 +6,7 @@ import com.academix.academix.model.users;
 import java.util.List;
 
 public interface userServiceInterface {
-    public int addusers(users users);
+    public int addusers(users users,int collegeid);
     public users getUserById(int id);
     public List<users> getAllUsers();
     public int createUser(users user);

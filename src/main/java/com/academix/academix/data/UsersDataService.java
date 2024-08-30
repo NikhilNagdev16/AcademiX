@@ -30,7 +30,7 @@ public class UsersDataService implements UsersDataAccessInterface{
 
 
     @Override
-    public int addusers(users user) {
+    public int addusers(users user,int collegeid) {
 
         String sql = "INSERT INTO users (password, email, name,role) VALUES (?, ?, ?,?)";
 
@@ -45,6 +45,14 @@ public class UsersDataService implements UsersDataAccessInterface{
             return ps;
         }, keyHolder);
 
+        String sql1="insert into user_college(user_id,college_id) values(?,?)";
+        KeyHolder keyHolder1 = new GeneratedKeyHolder();
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sql1, Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, keyHolder1.getKey().intValue());
+            ps.setInt(2, collegeid);
+            return ps;
+        },keyHolder);
         return keyHolder.getKey().intValue();
 
     }

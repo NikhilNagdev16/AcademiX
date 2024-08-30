@@ -42,6 +42,7 @@ public class CollegeDataService implements CollegeDataAccessInterface{
         return keyHolder.getKey().intValue();
     }
 
+
     @Override
     public colleges getCollegeById(int id) {
         List<colleges> result = jdbcTemplate.query("Select * from Colleges where college_id =?",new CollegeMapper(),id);
