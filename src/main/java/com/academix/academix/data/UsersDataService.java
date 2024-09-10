@@ -1,9 +1,12 @@
 package com.academix.academix.data;
 
 import com.academix.academix.model.loginInfo;
+import com.academix.academix.model.userPass;
 import com.academix.academix.model.users;
 import com.academix.academix.model.usersMapper;
+import com.academix.academix.services.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -21,21 +24,21 @@ public class UsersDataService implements UsersDataAccessInterface{
     public UsersDataService(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
+    @Autowired
+    EmailService es;
 
-//    @Autowired
-//    DataSource dataSource;
-//
-//    @Autowired
-//    JdbcTemplate jdbcTemplate;
-
-
+    @Autowired
+    CollegifyDataServices cds;
     @Override
-    public int addusers(users user,int collegeid) {
+    public int addusers(users user, int collegeid) {
 
-        String sql = "INSERT INTO users (password, email, name,role) VALUES (?, ?, ?,?)";
+        // SQL query to insert into the users table
+        String sql = "INSERT INTO users (password, email, name, role) VALUES (?, ?, ?, ?)";
 
+        // Create a KeyHolder to capture the generated user_id
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
+        // Execute the insert and capture the generated user_id
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, user.getPassword());
@@ -45,16 +48,41 @@ public class UsersDataService implements UsersDataAccessInterface{
             return ps;
         }, keyHolder);
 
-        String sql1="insert into user_college(user_id,college_id) values(?,?)";
-        KeyHolder keyHolder1 = new GeneratedKeyHolder();
+        // Extract the generated user_id
+        int userId = keyHolder.getKey().intValue();
+
+        // SQL query to insert into the user_college table
+        String sql1 = "INSERT INTO user_college (user_id, college_id) VALUES (?, ?)";
+
+        // Execute the insert into user_college table with the captured user_id
         jdbcTemplate.update(connection -> {
-            PreparedStatement ps = connection.prepareStatement(sql1, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, keyHolder1.getKey().intValue());
+            PreparedStatement ps = connection.prepareStatement(sql1);
+            ps.setInt(1, userId);
             ps.setInt(2, collegeid);
             return ps;
-        },keyHolder);
-        return keyHolder.getKey().intValue();
+        });
 
+        cds.addUser(user);
+
+        // Return the generated user_id
+        return userId;
+    }
+
+    @Override
+    public int addStudent(users users, int collegeid, int course_id, int roll_no) {
+        int stuId = addusers(users, collegeid);
+
+        String sql1 = "INSERT INTO student_course (course_id, student_id,roll_no) VALUES (?, ?,?)";
+
+        // Execute the insert into user_college table with the captured user_id
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sql1);
+            ps.setInt(1, course_id);
+            ps.setInt(2, stuId);
+            ps.setInt(3, roll_no);
+            return ps;
+        });
+        return stuId;
     }
 
     @Override
@@ -68,10 +96,26 @@ public class UsersDataService implements UsersDataAccessInterface{
         return jdbcTemplate.query("select * from users", new usersMapper());
     }
 
+
+
     @Override
-    public int adduser(users newuser) {
-        return jdbcTemplate.update("INSERT Into users(email,password,role,name) values (?,?,?,?)",
-                                              newuser.getEmail(),newuser.getPassword(),newuser.getRole(),newuser.getName());
+    public void forgotPass(String email) {
+        List<users> users=jdbcTemplate.query("select * from users where email =?",new usersMapper(),email);
+        if(users.isEmpty()){
+            return ;
+        }
+        String username=users.get(0).getEmail();
+        String password=users.get(0).getPassword();
+        es.sendCredentials(username,username,password);
+    }
+
+    @Override
+    public List<users> getTeachers(int collegeid) {
+        List<users> users=jdbcTemplate.query("SELECT *" +
+                "FROM users u\n" +
+                "JOIN user_college uc ON u.user_id = uc.user_id\n" +
+                "WHERE uc.college_id = ?;",new usersMapper(),collegeid);
+        return users;
     }
 
     @Override

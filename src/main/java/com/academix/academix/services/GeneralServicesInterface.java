@@ -9,7 +9,9 @@ public interface GeneralServicesInterface {
         public int noOfCourses(int collegeID);
         public int noOfStudents(int collegeID);
         public int noOfTeachers(int collegeID);
-        public int noOfLectures(int studentID);
+        public int noOfLecturesTeacher(int teacherId);
+        public int noOfLecturesStudent(int studentId);
+        public int noOfSubjectsTeacher(int teacherId);
 
 
 }

@@ -23,7 +23,7 @@ public class CollegeDataService implements CollegeDataAccessInterface{
 
     @Override
     public int addCollege(colleges clgInfo) {
-        String sql = "INSERT INTO colleges (college_name,no_of_classes,address,email,phone,college_logo) VALUES (?, ?, ?,?,?,?)";
+        String sql = "INSERT INTO colleges (college_name,no_of_classes,address,email,phone) VALUES (?, ?, ?,?,?)";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
@@ -34,12 +34,18 @@ public class CollegeDataService implements CollegeDataAccessInterface{
             ps.setString(3, clgInfo.getCollege_address());
             ps.setString(4, clgInfo.getCollege_email());
             ps.setString(5, clgInfo.getCollege_phone());
-            ps.setString(6, clgInfo.getLogo());
+//            ps.setString(6, clgInfo.getLogo());
 
             return ps;
         }, keyHolder);
 
         return keyHolder.getKey().intValue();
+    }
+
+    @Override
+    public List<colleges> getAllColleges() {
+        List<colleges> result = jdbcTemplate.query("Select * from Colleges",new CollegeMapper());
+        return result;
     }
 
 

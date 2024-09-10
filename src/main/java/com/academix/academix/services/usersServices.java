@@ -3,6 +3,7 @@ package com.academix.academix.services;
 
 import com.academix.academix.data.UsersDataService;
 import com.academix.academix.model.loginInfo;
+import com.academix.academix.model.userPass;
 import com.academix.academix.model.users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,9 +38,21 @@ public class usersServices implements userServiceInterface {
         return userDAO.getAllUsers();
     }
 
+
+
     @Override
-    public int createUser(users user) {
-        return userDAO.adduser(user);
+    public  void forgotPass(String email) {
+        userDAO.forgotPass(email);
+    }
+
+    @Override
+    public List<users> getTeachers(int collegeid) {
+        return userDAO.getTeachers(collegeid);
+    }
+
+    @Override
+    public int addStudent(users users, int collegeid, int course_id, int roll_no) {
+        return userDAO.addStudent(users,collegeid,course_id,roll_no);
     }
 
     @Override

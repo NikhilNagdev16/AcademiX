@@ -6,6 +6,8 @@ import com.academix.academix.model.colleges;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CollegeServices implements CollegeServiceInterface {
 
@@ -18,6 +20,11 @@ public class CollegeServices implements CollegeServiceInterface {
     @Override
     public int addCollege(colleges clgInfo) {
         return CollegeDAO.addCollege(clgInfo);
+    }
+
+    @Override
+    public List<colleges> getAllColleges() {
+        return CollegeDAO.getAllColleges();
     }
 
     @Override

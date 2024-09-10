@@ -5,15 +5,25 @@ public class subject {
     int course_id;
     int semester;
     String subject_name;
+    int TeacherId;
     int internal_marks;
     int external_marks;
     int practical_marks;
 
-    public subject(int subject_id, int course_id, int semester, String subject_name, int internal_marks, int external_marks, int practical_marks) {
+    public int getTeacherId() {
+        return TeacherId;
+    }
+
+    public void setTeacherId(int teacherId) {
+        TeacherId = teacherId;
+    }
+
+    public subject(int subject_id, int course_id, int semester, String subject_name, int TeacherId , int internal_marks, int external_marks, int practical_marks) {
         this.subject_id = subject_id;
         this.course_id = course_id;
         this.semester = semester;
         this.subject_name = subject_name;
+        this.TeacherId = TeacherId;
         this.internal_marks = internal_marks;
         this.external_marks = external_marks;
         this.practical_marks = practical_marks;

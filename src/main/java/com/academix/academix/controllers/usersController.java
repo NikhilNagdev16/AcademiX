@@ -1,6 +1,7 @@
 package com.academix.academix.controllers;
 
 import com.academix.academix.model.loginInfo;
+import com.academix.academix.model.userPass;
 import com.academix.academix.model.users;
 import com.academix.academix.services.CollegeServices;
 import com.academix.academix.services.usersServices;
@@ -22,6 +23,11 @@ public class usersController {
     public List<users> getUsers(){
         return usersService.getAllUsers();
     }
+
+    @GetMapping("/getTeacher")
+    public List<users> getTeacher(@RequestParam int collegeId){
+        return usersService.getTeachers(collegeId);
+    }
     
     @GetMapping("/test")
     public String test(){
@@ -37,8 +43,17 @@ public class usersController {
         return usersService.getLoginInfo(username, password);
     }
     @PostMapping("/addUser")
-    public int addUser(@RequestBody users user, int collegeid) {
+    public int addUser(@RequestBody users user, @RequestParam int collegeid) {
         return usersService.addusers(user,collegeid);
     }
 
+    @PostMapping("/addStudent")
+    public int addStudent(@RequestBody users user, @RequestParam int collegeid, @RequestParam int course_id, @RequestParam int roll_no) {
+        return usersService.addStudent(user,collegeid,course_id,roll_no);
+    }
+
+    @GetMapping("/forgot")
+    public void forgotUser(@RequestParam String email) {
+        usersService.forgotPass(email);
+    }
 }

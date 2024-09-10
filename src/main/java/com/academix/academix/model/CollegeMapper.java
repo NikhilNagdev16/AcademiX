@@ -14,8 +14,7 @@ public class CollegeMapper implements RowMapper<colleges>{
                                         rs.getString("address"),
                                         rs.getString("phone"),
                                         rs.getString("email"),
-                                        rs.getInt("no_of_classes"),
-                                        rs.getString("logo"));
+                                        rs.getInt("no_of_classes"));
         return college;
     }
 }

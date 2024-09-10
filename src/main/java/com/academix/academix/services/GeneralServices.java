@@ -59,7 +59,19 @@ public class GeneralServices implements GeneralServicesInterface{
     }
 
     @Override
-    public int noOfLectures(int studentID) {
-        return generalDAO.noOfLectures(studentID);
+    public int noOfLecturesTeacher(int teacherId) {
+        return generalDAO.noOfLecturesTeacher(teacherId);
     }
+
+    @Override
+    public int noOfLecturesStudent(int studentId) {
+        return generalDAO.noOfLecturesStudent(studentId);
+    }
+
+    @Override
+    public int noOfSubjectsTeacher(int teacherId) {
+        return generalDAO.noOfSubjectsTeacher(teacherId);
+    }
+
+
 }

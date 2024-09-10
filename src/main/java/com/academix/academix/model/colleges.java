@@ -7,25 +7,25 @@ public class colleges {
     String college_phone;
     String college_email;
     int noOfClasses;
-    String logo;
+//    String logo;
 
-    public colleges(int college_id, String college_name, String college_address, String college_phone, String college_email, int noOfClasses, String logo) {
+    public colleges(int college_id, String college_name, String college_address, String college_phone, String college_email, int noOfClasses) {
         this.college_id = college_id;
         this.college_name = college_name;
         this.college_address = college_address;
         this.college_phone = college_phone;
         this.college_email = college_email;
         this.noOfClasses = noOfClasses;
-        this.logo = logo;
+//        this.logo = logo;
     }
 
-    public String getLogo() {
-        return logo;
-    }
-
-    public void setLogo(String logo) {
-        this.logo = logo;
-    }
+//    public String getLogo() {
+//        return logo;
+//    }
+//
+//    public void setLogo(String logo) {
+//        this.logo = logo;
+//    }
 
     public int getCollege_id() {
         return college_id;

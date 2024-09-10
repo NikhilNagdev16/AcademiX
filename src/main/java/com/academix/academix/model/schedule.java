@@ -4,17 +4,16 @@ public class schedule {
     int schedule_id;
     int course_id;
     int subject_id;
-    int teacher_id;
+
     String day;
     String start_time;
     String end_time;
     int class_no;
 
-    public schedule(int schedule_id, int course_id, int subject_id, int teacher_id, String day, String start_time, String end_time, int class_no) {
+    public schedule(int schedule_id, int course_id, int subject_id, String day, String start_time, String end_time, int class_no) {
         this.schedule_id = schedule_id;
         this.course_id = course_id;
         this.subject_id = subject_id;
-        this.teacher_id = teacher_id;
         this.day = day;
         this.start_time = start_time;
         this.end_time = end_time;
@@ -45,13 +44,6 @@ public class schedule {
         this.subject_id = subject_id;
     }
 
-    public int getTeacher_id() {
-        return teacher_id;
-    }
-
-    public void setTeacher_id(int teacher_id) {
-        this.teacher_id = teacher_id;
-    }
 
     public String getDay() {
         return day;
