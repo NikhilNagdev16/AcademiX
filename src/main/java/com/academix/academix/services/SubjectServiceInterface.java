@@ -7,4 +7,5 @@ import java.util.List;
 public interface SubjectServiceInterface {
     public int createSubject(subject sub);
     public List<subject> getAllSubjects(int courseId);
+    public List<subject> getSubjectsByteacher(int teacherId);
 }

@@ -51,4 +51,10 @@ public class SubjectDataService implements SubjectDataAccessInterface{
         List<subject> result = jdbcTemplate.query("select * from subjects where course_id=?", new subjectMapper(),courseId);
         return result;
     }
+
+    @Override
+    public List<subject> getSubjectsByteacher(int teacherId) {
+        List<subject> result = jdbcTemplate.query("select * from subjects where Teacher_id=?", new subjectMapper(),teacherId);
+        return result;
+    }
 }
