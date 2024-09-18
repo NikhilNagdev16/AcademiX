@@ -40,4 +40,9 @@ public class scheduleService implements ScheduleServiceInterface {
         List<schedule> schedules = scheduleDAO.getAllSchedules();
         return schedules;
     }
+
+    public List<schedule> getscheduleforattendance(int subjectId, String dayofweek) {
+        List<schedule> schedules = scheduleDAO.getscheduleforattendance(subjectId,dayofweek);
+        return schedules;
+    }
 }

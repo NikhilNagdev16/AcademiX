@@ -29,4 +29,8 @@ public class scheduleController {
         return scheduleService.getByCourse(courseId);
     }
 
+    @GetMapping("/scheduleforattendance")
+    public List<schedule> getScheduleforattendance( @RequestParam int subjectId, @RequestParam String  Dayofweek){
+        return scheduleService.getscheduleforattendance(subjectId,Dayofweek);
+    };
 }
