@@ -74,4 +74,11 @@ public class ScheduleDataService implements ScheduleDataAccessInterface{
         List<schedule> result = jdbcTemplate.query("select * from schedules", new scheduleMapper());
         return result;
     }
+
+
+    public List<schedule> getscheduleforattendance(int subjectId, String dayofweek) {
+
+        List<schedule> result = jdbcTemplate.query("select * from schedules where subject_id=?&day=?", new scheduleMapper(),subjectId,dayofweek);
+        return result;
+    }
 }

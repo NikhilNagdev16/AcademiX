@@ -56,4 +56,5 @@ public class usersController {
     public void forgotUser(@RequestParam String email) {
         usersService.forgotPass(email);
     }
+
 }
