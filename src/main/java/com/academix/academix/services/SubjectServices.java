@@ -22,4 +22,9 @@ public class SubjectServices implements SubjectServiceInterface {
     public List<subject> getAllSubjects(int courseId) {
         return subjectDAO.getAllSubjects(courseId);
     }
+
+    @Override
+    public List<subject> getSubjectsByteacher(int teacherId) {
+        return subjectDAO.getSubjectsByteacher(teacherId);
+    }
 }

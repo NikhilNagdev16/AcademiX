@@ -49,7 +49,7 @@ public class generalController {
     }
     @GetMapping("/getNoOfLecturesStudent")
     public int getNoOfLecturesStudent(@RequestParam int studentId) {
-        return generalServices.noOfTeachers(studentId);
+        return generalServices.noOfLecturesStudent(studentId);
     }
     @GetMapping("/getNoOfSubjectsTeacher")
     public int getNoOfSubjectsTeacher(@RequestParam int teacherId) {

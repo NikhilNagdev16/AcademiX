@@ -41,6 +41,16 @@ public class scheduleService implements ScheduleServiceInterface {
         return schedules;
     }
 
+    @Override
+    public List<schedule> getScheduleForAttendance(int subjectId, String day) {
+        return scheduleDAO.getScheduleForAttendance(subjectId,day);
+    }
+
+    @Override
+    public List<schedule> getByStudent(int studentId) {
+        return scheduleDAO.getByStudent(studentId);
+    }
+
     public List<schedule> getscheduleforattendance(int subjectId, String dayofweek) {
         List<schedule> schedules = scheduleDAO.getscheduleforattendance(subjectId,dayofweek);
         return schedules;

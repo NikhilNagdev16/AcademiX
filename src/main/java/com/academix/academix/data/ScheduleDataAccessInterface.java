@@ -10,4 +10,6 @@ public interface ScheduleDataAccessInterface {
     List<schedule> getBySubject(int subjectId);
     List<schedule> getByTeacher(int teacherId);
     List<schedule> getAllSchedules();
+    List<schedule> getScheduleForAttendance(int subjectId, String day);
+    List<schedule> getByStudent(int studentId);
 }

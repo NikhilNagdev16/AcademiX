@@ -80,7 +80,8 @@ public class GeneralDataService implements GeneralDataServiceInterface {
 
     @Override
     public int noOfLecturesStudent(int studentId) {
-        return 0;
+        int result = jdbcTemplate.queryForObject("select count(*) from schedules s join student_course sc on s.course_id=sc.course_id where  student_id = ?", Integer.class, studentId);
+        return result;
     }
 
     @Override

@@ -21,7 +21,11 @@ public class subjectController {
     }
 
     @GetMapping("/subject")
-    public List<subject> addCollege(@RequestParam int courseId){
+    public List<subject> getSub(@RequestParam int courseId){
         return subjectServices.getAllSubjects(courseId);
+    }
+    @GetMapping("/subjectTeacher")
+    public List<subject> getSubByTeacher(@RequestParam int TeacherId){
+        return subjectServices.getSubjectsByteacher(TeacherId);
     }
 }
