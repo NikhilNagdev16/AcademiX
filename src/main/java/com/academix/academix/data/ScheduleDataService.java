@@ -75,6 +75,18 @@ public class ScheduleDataService implements ScheduleDataAccessInterface{
         return result;
     }
 
+    @Override
+    public List<schedule> getScheduleForAttendance(int subjectId, String day) {
+        List<schedule> result= jdbcTemplate.query("select * from schedules where subject_id =? and day =?", new scheduleMapper(),subjectId,day);
+        return result;
+    }
+
+    @Override
+    public List<schedule> getByStudent(int studentId) {
+        List<schedule> result= jdbcTemplate.query("select s.* from schedules s join student_course sc on s.course_id = sc.course_id where student_id =?", new scheduleMapper(),studentId);
+        return result;
+    }
+
 
     public List<schedule> getscheduleforattendance(int subjectId, String dayofweek) {
 

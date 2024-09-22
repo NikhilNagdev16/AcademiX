@@ -19,6 +19,11 @@ public class scheduleController {
         return  scheduleService.addSchedule(s);
     }
 
+    @GetMapping("/scheduleStudent")
+    public List<schedule> getScheduleStudent(int studentId) {
+        return scheduleService.getByStudent(studentId);
+    }
+
     @GetMapping("/scheduleTeacher")
     public List<schedule> getScheduleTeacher(int teacherId) {
         return scheduleService.getByTeacher(teacherId);
@@ -29,8 +34,9 @@ public class scheduleController {
         return scheduleService.getByCourse(courseId);
     }
 
-    @GetMapping("/scheduleforattendance")
-    public List<schedule> getScheduleforattendance( @RequestParam int subjectId, @RequestParam String  Dayofweek){
-        return scheduleService.getscheduleforattendance(subjectId,Dayofweek);
-    };
+    @GetMapping("/scheduleForAttendance")
+    public List<schedule> getScheduleForAttendance(@RequestParam int subjectId,@RequestParam String day) {
+        return scheduleService.getScheduleForAttendance(subjectId,day);
+    }
+
 }
