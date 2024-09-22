@@ -21,6 +21,9 @@ public class SubjectDataService implements SubjectDataAccessInterface{
     public SubjectDataService(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
+    @Autowired
+    CollegifyDataServices cds;
+
     @Override
     public int createSubject(subject sub) {
         String sql = "INSERT INTO subjects (course_id, semester, subject_name, Teacher_id,internal_marks,external_marks,practical_marks) VALUES (?, ?, ?, ?,?, ?, ?)";
@@ -43,6 +46,8 @@ public class SubjectDataService implements SubjectDataAccessInterface{
 
         // Extract the generated user_id
         int subjectid = keyHolder.getKey().intValue();
+        cds.addChannelToComm(sub.getSubject_name(), sub.getCourse_id(),sub.getSemester());
+        cds.addUsertoComm(sub.getCourse_id(),sub.getTeacherId());
         return subjectid;
     }
 

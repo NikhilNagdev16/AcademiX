@@ -62,7 +62,7 @@ public class UsersDataService implements UsersDataAccessInterface{
             return ps;
         });
 
-        cds.addUser(user);
+        cds.addUser(user,userId);
 
         // Return the generated user_id
         return userId;
@@ -82,7 +82,9 @@ public class UsersDataService implements UsersDataAccessInterface{
             ps.setInt(3, roll_no);
             return ps;
         });
+        cds.addUsertoComm(course_id,stuId);
         return stuId;
+
     }
 
     @Override

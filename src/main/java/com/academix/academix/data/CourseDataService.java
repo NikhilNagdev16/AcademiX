@@ -59,7 +59,7 @@ public class CourseDataService implements CourseDataAccessInterface{
             return ps;
         }, keyHolder);
            int k=keyHolder.getKey().intValue();
-//           cds.CreateComm(c.getCourse_name(),gds.getAdminEmail(c.getCollege_id()));
+          cds.CreateComm(k,c.getCourse_name(),gds.getAdminEmail(c.getCollege_id()));
         return k;
     }
 }

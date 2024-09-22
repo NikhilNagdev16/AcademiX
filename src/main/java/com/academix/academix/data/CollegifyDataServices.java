@@ -22,9 +22,9 @@ public class CollegifyDataServices {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public int addUser(users user){
+    public int addUser(users user,int userID){
         //        //adding to clgify db
-        String sql2 = "INSERT INTO User (UserName, fname, Email, Password,lname) VALUES (?, ?, ?,?, ?)";
+        String sql2 = "INSERT INTO User (UserId,UserName, fname, Email, Password,lname) VALUES (?,?, ?, ?,?, ?)";
 
         // Create a KeyHolder to capture the generated user_id
         KeyHolder keyHolder2 = new GeneratedKeyHolder();
@@ -32,21 +32,22 @@ public class CollegifyDataServices {
         // Execute the insert and capture the generated user_id
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql2, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, user.getEmail());
-            ps.setString(2, user.getName());
-            ps.setString(3, user.getEmail());
-            ps.setString(4, user.getPassword());
-            ps.setString(5, "_");
+            ps.setInt(1, userID);
+            ps.setString(2, user.getEmail());
+            ps.setString(3, user.getName());
+            ps.setString(4, user.getEmail());
+            ps.setString(5, user.getPassword());
+            ps.setString(6, "_");
             return ps;
         }, keyHolder2);
         int id = keyHolder2.getKey().intValue();
         return id;
     }
 
-    public int CreateComm(String cname,String cadmin){
+    public int CreateComm(int CourseId,String cname,String cadmin){
         Random random = new Random();
         int result = jdbcTemplate.queryForObject("SELECT UserID FROM User where Email = ?", Integer.class, cadmin);
-        String sql2 = "INSERT INTO Community (Name, CreatorUserID, InviteCode, logo) VALUES (?, ?, ?,?)";
+        String sql2 = "INSERT INTO Community (CommunityID,Name, CreatorUserID, InviteCode, logo,Description) VALUES (?,?, ?, ?,?,?)";
 
         // Create a KeyHolder to capture the generated user_id
         KeyHolder keyHolder2 = new GeneratedKeyHolder();
@@ -54,14 +55,51 @@ public class CollegifyDataServices {
         // Execute the insert and capture the generated user_id
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql2, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, cname);
-            ps.setInt(2, result);
-            ps.setInt(3, random.nextInt(90000) + 10000);
-            ps.setString(4, "__");
+            ps.setInt(1, CourseId);
+            ps.setString(2, cname);
+            ps.setInt(3, result);
+            ps.setInt(4, random.nextInt(90000) + 10000);
+            ps.setString(5, "__");
+            ps.setString(6, "__");
             return ps;
         }, keyHolder2);
         int id = keyHolder2.getKey().intValue();
         return id;
 
     }
+    public int addUsertoComm(int CourseId,int UserId){
+        String sql2 = "INSERT INTO CommunityMember (UserID,CommunityID) VALUES (?,?)";
+
+        // Create a KeyHolder to capture the generated user_id
+        KeyHolder keyHolder2 = new GeneratedKeyHolder();
+
+        // Execute the insert and capture the generated user_id
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sql2, Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, UserId);
+            ps.setInt(2, CourseId);
+            return ps;
+        }, keyHolder2);
+        int id = keyHolder2.getKey().intValue();
+        return id;
+    }
+    public int addChannelToComm(String Name,int CourseId,int tid){
+        String sql2 = "INSERT INTO Channel (Name,CommunityID,CreatorUserID) VALUES (?,?,?)";
+
+        // Create a KeyHolder to capture the generated user_id
+        KeyHolder keyHolder2 = new GeneratedKeyHolder();
+
+        // Execute the insert and capture the generated user_id
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sql2, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, Name);
+            ps.setInt(2, CourseId);
+            ps.setInt(3, tid);
+
+            return ps;
+        }, keyHolder2);
+        int id = keyHolder2.getKey().intValue();
+        return id;
+    }
+
 }
